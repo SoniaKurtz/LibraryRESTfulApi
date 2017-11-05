@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LibraryRESTfulApi.Helpers;
+using LibraryRESTfulApi.Entities;
 using LibraryRESTfulApi.Models;
 using LibraryRESTfulApi.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +28,7 @@ namespace LibraryRESTfulApi.Controllers
             return Ok(authors);    
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name ="GetAuthor")]
         public IActionResult GetAuthor(Guid id)
         {
             var authorFromRepo = _libraryRepository.GetAuthor(id);
@@ -41,6 +41,28 @@ namespace LibraryRESTfulApi.Controllers
             var author = Mapper.Map<AuthorDto>(authorFromRepo);
 
             return Ok(author);
+        }
+
+        [HttpPost()]
+        public IActionResult CreateAuthor([FromBody] AuthorForCreationDto author)
+        {
+            if (author == null)
+            {
+                return BadRequest();
+            }
+
+            var authorEntity = Mapper.Map<Author>(author);
+
+            _libraryRepository.AddAuthor(authorEntity);
+
+            if (!_libraryRepository.Save())
+            {
+                throw new Exception("Creating an author failed on save.");
+            }
+
+            var authorToReturn = Mapper.Map<AuthorDto>(authorEntity);
+
+            return CreatedAtRoute("GetAuthor", new { id = authorToReturn.Id }, authorToReturn);
         }
     }
 }
