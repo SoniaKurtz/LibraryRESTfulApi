@@ -29,6 +29,7 @@ namespace LibraryRESTfulApi
             {
                 setupAction.ReturnHttpNotAcceptable = true;
                 setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+                setupAction.InputFormatters.Add(new XmlDataContractSerializerInputFormatter());
             });
 
             var connectionString = Startup.Configuration["connectionsStrings:libraryApiConnectionString"];
