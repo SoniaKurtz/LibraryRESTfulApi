@@ -197,7 +197,20 @@ namespace LibraryRESTfulApi.Controllers
             {
                 var bookDto = new BookForUpdateDto();
 
-                patchDoc.ApplyTo(bookDto);
+                patchDoc.ApplyTo(bookDto, ModelState);
+
+                if (bookDto.Description == bookDto.Title)
+                {
+                    ModelState.AddModelError(nameof(BookForUpdateDto),
+                        "The provided description should be different from the title.");
+                }
+
+                TryValidateModel(bookDto);
+
+                if (!ModelState.IsValid)
+                {
+                    return new UnprocessableEntityObjectResult(ModelState);
+                }
 
                 var bookToAdd = Mapper.Map<Book>(bookDto);
 
@@ -219,7 +232,20 @@ namespace LibraryRESTfulApi.Controllers
 
             var bookToPatch = Mapper.Map<BookForUpdateDto>(bookForAuthorFromRepo);
 
-            patchDoc.ApplyTo(bookToPatch);
+            patchDoc.ApplyTo(bookToPatch, ModelState);
+
+            if (bookToPatch.Description == bookToPatch.Title)
+            {
+                ModelState.AddModelError(nameof(BookForUpdateDto),
+                    "The provided description should be different from the title.");
+            }
+
+            TryValidateModel(bookToPatch);
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
 
             Mapper.Map(bookToPatch, bookForAuthorFromRepo);
 
