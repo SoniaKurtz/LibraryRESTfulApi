@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LibraryRESTfulApi.Entities;
+using LibraryRESTfulApi.Helpers;
 using LibraryRESTfulApi.Models;
 using LibraryRESTfulApi.Services;
 using Microsoft.AspNetCore.JsonPatch;
@@ -60,6 +61,17 @@ namespace LibraryRESTfulApi.Controllers
             if (book == null)
             {
                 return BadRequest();
+            }
+
+            if (book.Description == book.Title)
+            {
+                ModelState.AddModelError(nameof(BookForCreationDto), 
+                    "The provided description should be different from the title.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
             }
 
             if (!_libraryRepository.AuthorExists(authorId))
