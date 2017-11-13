@@ -9,3 +9,4 @@ C:\Users\Sonia\Documents\GitHub\Library\LibraryRESTfulApi\obj\Debug\netcoreapp2.
 C:\Users\Sonia\Documents\GitHub\Library\LibraryRESTfulApi\obj\Debug\netcoreapp2.0\LibraryRESTfulApi.AssemblyInfo.cs
 C:\Users\Sonia\Documents\GitHub\Library\LibraryRESTfulApi\obj\Debug\netcoreapp2.0\LibraryRESTfulApi.dll
 C:\Users\Sonia\Documents\GitHub\Library\LibraryRESTfulApi\obj\Debug\netcoreapp2.0\LibraryRESTfulApi.pdb
+C:\Users\Sonia\Documents\GitHub\Library\LibraryRESTfulApi\bin\Debug\netcoreapp2.0\nlog.config

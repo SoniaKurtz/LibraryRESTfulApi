@@ -5,6 +5,7 @@ using LibraryRESTfulApi.Models;
 using LibraryRESTfulApi.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 
@@ -15,8 +16,11 @@ namespace LibraryRESTfulApi.Controllers
     {
         private ILibraryRepository _libraryRepository;
 
-        public BooksController(ILibraryRepository libraryRepository)
+        private ILogger<BooksController> _logger;
+
+        public BooksController(ILibraryRepository libraryRepository, ILogger<BooksController> logger)
         {
+            _logger = logger;
             _libraryRepository = libraryRepository;
         }
 
@@ -115,6 +119,8 @@ namespace LibraryRESTfulApi.Controllers
             {
                 throw new Exception($"Deleting book {id} for author {authorId} failed on save.");
             }
+
+            _logger.LogInformation(100, $"Book {id} for author {authorId} was deleted.");
 
             return NoContent();
         }
@@ -232,7 +238,9 @@ namespace LibraryRESTfulApi.Controllers
 
             var bookToPatch = Mapper.Map<BookForUpdateDto>(bookForAuthorFromRepo);
 
-            patchDoc.ApplyTo(bookToPatch, ModelState);
+            //patchDoc.ApplyTo(bookToPatch, ModelState);
+
+            patchDoc.ApplyTo(bookToPatch);
 
             if (bookToPatch.Description == bookToPatch.Title)
             {
