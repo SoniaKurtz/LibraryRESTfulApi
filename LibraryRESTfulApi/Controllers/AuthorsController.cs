@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LibraryRESTfulApi.Entities;
+using LibraryRESTfulApi.Helpers;
 using LibraryRESTfulApi.Models;
 using LibraryRESTfulApi.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +20,9 @@ namespace LibraryRESTfulApi.Controllers
         }
 
         [HttpGet()]
-        public IActionResult GetAuthors()
+        public IActionResult GetAuthors(AuthorsResourceParameters authorsResourceParameters)
         {
-            var authorsFromRepo = _libraryRepository.GetAuthors();
+            var authorsFromRepo = _libraryRepository.GetAuthors(authorsResourceParameters);
 
             var authors = Mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo);
 

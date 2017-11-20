@@ -1,4 +1,5 @@
 ﻿using LibraryRESTfulApi.Entities;
+using LibraryRESTfulApi.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace LibraryRESTfulApi.Services
 {
     public interface ILibraryRepository
     {
-        IEnumerable<Author> GetAuthors();
+        IEnumerable<Author> GetAuthors(AuthorsResourceParameters authorsResourceParameters);
 
         Author GetAuthor(Guid authorId);
 

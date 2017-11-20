@@ -1,4 +1,5 @@
 ﻿using LibraryRESTfulApi.Entities;
+using LibraryRESTfulApi.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,9 +62,15 @@ namespace LibraryRESTfulApi.Services
             return _context.Authors.FirstOrDefault(a => a.Id == authorId);
         }
 
-        public IEnumerable<Author> GetAuthors()
+        public IEnumerable<Author> GetAuthors(AuthorsResourceParameters authorsResourceParametrs)
         {
-            return _context.Authors.OrderBy(a => a.FirstName).ThenBy(a => a.LastName);
+            return _context.Authors
+                .OrderBy(a => a.FirstName)
+                .ThenBy(a => a.LastName)
+                .Skip(authorsResourceParametrs.PageSize
+                * (authorsResourceParametrs.PageNumer - 1))
+                .Take(authorsResourceParametrs.PageSize)
+                .ToList();
         }
 
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)
