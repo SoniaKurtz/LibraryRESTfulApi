@@ -68,7 +68,7 @@ namespace LibraryRESTfulApi.Services
                 .OrderBy(a => a.FirstName)
                 .ThenBy(a => a.LastName)
                 .Skip(authorsResourceParametrs.PageSize
-                * (authorsResourceParametrs.PageNumer - 1))
+                * (authorsResourceParametrs.PageNumber - 1))
                 .Take(authorsResourceParametrs.PageSize)
                 .ToList();
         }

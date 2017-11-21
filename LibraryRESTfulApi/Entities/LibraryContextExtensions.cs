@@ -143,6 +143,23 @@ namespace LibraryRESTfulApi.Entities
                              Description = "Easy Money or Snabba cash is a novel from 2006 by Jens Lapidus. It has been a success in term of sales, and the paperback was the fourth best seller of Swedish novels in 2007."
                          }
                      }
+                },
+                new Author()
+                {
+                    Id = new Guid("53e96f20-ae67-4d6e-a3e9-f24cc1d0d303"),
+                    FirstName = "Mark",
+                    LastName = "Frost",
+                    Genre = "Fantasy",
+                    DateOfBirth = new DateTimeOffset(new DateTime(1953, 11, 25)),
+                    Books = new List<Book>()
+                    {
+                        new Book()
+                        {
+                            Id = new Guid("635f3af9-4577-42a4-aca1-652b0888895a"),
+                            Title = "The Secret History of Twin Peaks",
+                            Description = "Provides background information on the history of the fictional town and characters from the television series Twin Peaks."
+                        }
+                    }
                 }
             };
 
