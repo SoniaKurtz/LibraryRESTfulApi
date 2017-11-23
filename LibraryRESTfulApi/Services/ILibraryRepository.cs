@@ -7,7 +7,7 @@ namespace LibraryRESTfulApi.Services
 {
     public interface ILibraryRepository
     {
-        IEnumerable<Author> GetAuthors(AuthorsResourceParameters authorsResourceParameters);
+        PagedList<Author> GetAuthors(AuthorsResourceParameters authorsResourceParameters);
 
         Author GetAuthor(Guid authorId);
 
