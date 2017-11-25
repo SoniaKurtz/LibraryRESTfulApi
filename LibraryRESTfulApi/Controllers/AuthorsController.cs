@@ -61,6 +61,7 @@ namespace LibraryRESTfulApi.Controllers
                     return _urlHelper.Link("GetAuthors",
                         new
                         {
+                            orderBy = authorsResourceParameter.OrderBy,
                             searchQuery = authorsResourceParameter.SearchQuery,
                             genre = authorsResourceParameter.Genre,
                             pageNumber = authorsResourceParameter.PageNumber - 1,
@@ -70,6 +71,7 @@ namespace LibraryRESTfulApi.Controllers
                     return _urlHelper.Link("GetAuthors",
                         new
                         {
+                            orderBy = authorsResourceParameter.OrderBy,
                             searchQuery = authorsResourceParameter.SearchQuery,
                             genre = authorsResourceParameter.Genre,
                             pageNumber = authorsResourceParameter.PageNumber + 1,
@@ -79,6 +81,7 @@ namespace LibraryRESTfulApi.Controllers
                     return _urlHelper.Link("GetAuthors",
                         new
                         {
+                            orderBy = authorsResourceParameter.OrderBy,
                             searchQuery = authorsResourceParameter.SearchQuery,
                             genre = authorsResourceParameter.Genre,
                             pageNumber = authorsResourceParameter.PageNumber,
