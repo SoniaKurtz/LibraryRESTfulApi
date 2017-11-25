@@ -66,7 +66,27 @@ namespace LibraryRESTfulApi.Services
         {
             var collectionBeforePaging = _context.Authors
                 .OrderBy(a => a.FirstName)
-                .ThenBy(a => a.LastName);
+                .ThenBy(a => a.LastName).AsQueryable();
+
+            if (!string.IsNullOrEmpty(authorsResourceParametrs.Genre))
+            {
+                var genreForWhereClause = authorsResourceParametrs.Genre
+                    .Trim().ToLowerInvariant();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Genre.ToLowerInvariant() == genreForWhereClause);
+            }
+
+            if (!string.IsNullOrEmpty(authorsResourceParametrs.SearchQuery))
+            {
+                var searchQueryForWhereClause = authorsResourceParametrs.SearchQuery
+                    .Trim().ToLower();
+
+                collectionBeforePaging = collectionBeforePaging
+                    .Where(a => a.Genre.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                    || a.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause));
+            }
 
             return PagedList<Author>.Create(collectionBeforePaging, 
                 authorsResourceParametrs.PageNumber, 
