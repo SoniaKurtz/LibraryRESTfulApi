@@ -35,5 +35,34 @@ namespace LibraryRESTfulApi.Services
 
             throw new Exception($"Cannot find exact property mapping instance for <{typeof(TSource)}, {typeof(TDestination)}>");
         }
+
+        public bool ValidMappingExistsFor<TSource, TDestination>(string fields)
+        {
+            var propertyMapping = GetPropertyMapping<TSource, TDestination>();
+
+            if (string.IsNullOrWhiteSpace(fields))
+            {
+                return true;
+            }
+
+            var fieldsAfterSplit = fields.Split(',');
+
+            foreach (var field in fieldsAfterSplit)
+            {
+                var trimmedField = field.Trim();
+
+                var indexOffFirstSpace = trimmedField.IndexOf(" ");
+
+                var propertyName = indexOffFirstSpace == -1 ?
+                    trimmedField : trimmedField.Remove(indexOffFirstSpace);
+
+                if (!propertyMapping.ContainsKey(propertyName))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }
