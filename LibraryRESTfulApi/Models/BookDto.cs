@@ -2,7 +2,7 @@
 
 namespace LibraryRESTfulApi.Models
 {
-    public class BookDto
+    public class BookDto : LinkedResourceBaseDto
     {
         public Guid Id { get; set; }
 
